@@ -1,2 +1,2 @@
-# finance
-金融大數據作業
+# Streamlit_Financial_Dashboard_Trading
+Streamlit Financial Dashboard and Program Trading
