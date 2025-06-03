@@ -96,30 +96,40 @@ if choice == choices[12] :                                                      
 
 
 
-
 ###### 選擇資料區間
 st.subheader("選擇資料時間區間")
-if choice == choices[0] :                       ##'台積電: 2022.1.1 至 2024.4.9':
-    start_date = st.date_input('選擇開始日期', value=datetime.date(2022, 1, 1), min_value=datetime.date(2022, 1, 1), max_value=datetime.date(2024, 4, 9))
-    end_date = st.date_input('選擇結束日期', value=datetime.date(2024, 4, 9), min_value=start_date, max_value=datetime.date(2024, 4, 9))
-if choice == choices[1] :                                   ##'大台指期貨2024.12到期: 2023.12 至 2024.4.11':
-    start_date = st.date_input('選擇開始日期', value=datetime.date(2023, 12, 21), min_value=datetime.date(2023, 12, 21), max_value=datetime.date(2024, 4, 11))
-    end_date = st.date_input('選擇結束日期', value=datetime.date(2024, 4, 11), min_value=start_date, max_value=datetime.date(2024, 4, 11))
-if choice == choices[2] :                                               ##'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
-    start_date = st.date_input('選擇開始日期', value=datetime.date(2023, 12, 21), min_value=datetime.date(2023, 12, 21), max_value=datetime.date(2024, 4, 11))
-    end_date = st.date_input('選擇結束日期', value=datetime.date(2024, 4, 11), min_value=start_date, max_value=datetime.date(2024, 4, 11))
-if choice == choices[3] : 
-    start_date = st.date_input('選擇開始日期', value=datetime.date(2020, 1, 2), min_value=datetime.date(2020, 1, 2), max_value=datetime.date(2024, 4, 12))
-    end_date = st.date_input('選擇結束日期', value=datetime.date(2024, 4, 12), min_value=start_date, max_value=datetime.date(2024, 4, 12))
-if choice == choices[4] :     
-    start_date = st.date_input('選擇開始日期', value=datetime.date(2020, 1, 2), min_value=datetime.date(2020, 1, 2), max_value=datetime.date(2024, 4, 12))
-    end_date = st.date_input('選擇結束日期', value=datetime.date(2024, 4, 12), min_value=start_date, max_value=datetime.date(2024, 4, 12))
 
+# 建立每個商品對應的時間範圍字典
+date_ranges = {
+    choices[0]: (datetime.date(2020, 1, 2), datetime.date(2025, 4, 16)),
+    choices[1]: (datetime.date(2020, 1, 2), datetime.date(2025, 3, 10)),
+    choices[2]: (datetime.date(2023, 4, 17), datetime.date(2025, 4, 17)),
+    choices[3]: (datetime.date(2023, 4, 17), datetime.date(2025, 4, 16)),
+    choices[4]: (datetime.date(2023, 4, 17), datetime.date(2025, 4, 17)),
+    choices[5]: (datetime.date(2023, 4, 17), datetime.date(2025, 4, 16)),
+    choices[6]: (datetime.date(2020, 3, 2), datetime.date(2025, 4, 14)),
+    choices[7]: (datetime.date(2023, 4, 17), datetime.date(2025, 4, 16)),
+    choices[8]: (datetime.date(2023, 4, 17), datetime.date(2025, 4, 17)),
+    choices[9]: (datetime.date(2023, 4, 17), datetime.date(2025, 4, 17)),
+    choices[10]: (datetime.date(2020, 3, 2), datetime.date(2025, 4, 14)),
+    choices[11]: (datetime.date(2020, 3, 2), datetime.date(2025, 3, 14)),
+    choices[12]: (datetime.date(2020, 3, 23), datetime.date(2025, 3, 14)),
+}
 
+# 取得該商品的時間範圍
+min_date, max_date = date_ranges.get(choice, (datetime.date(2020, 1, 1), datetime.date.today()))
+
+# 顯示日期選擇器
+start_date = st.date_input('選擇開始日期', value=min_date, min_value=min_date, max_value=max_date)
+end_date = st.date_input('選擇結束日期', value=max_date, min_value=start_date, max_value=max_date)
+
+# 合併時間（保持與原本一致）
 start_date = datetime.datetime.combine(start_date, datetime.datetime.min.time())
 end_date = datetime.datetime.combine(end_date, datetime.datetime.min.time())
-# 使用条件筛选选择时间区间的数据
+
+# 過濾資料
 df = df_original[(df_original['time'] >= start_date) & (df_original['time'] <= end_date)]
+
 
 
 
