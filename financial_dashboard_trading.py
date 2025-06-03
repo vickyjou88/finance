@@ -99,8 +99,8 @@ if choice == choices[12] :                                                      
 ###### 選擇資料區間
 st.subheader("選擇資料時間區間")
 
-# 建立每個商品對應的時間範圍字典
-date_ranges = {
+###### 各商品對應的時間範圍
+product_date_ranges = {
     choices[0]: (datetime.date(2020, 1, 2), datetime.date(2025, 4, 16)),
     choices[1]: (datetime.date(2020, 1, 2), datetime.date(2025, 3, 10)),
     choices[2]: (datetime.date(2023, 4, 17), datetime.date(2025, 4, 17)),
@@ -116,18 +116,18 @@ date_ranges = {
     choices[12]: (datetime.date(2020, 3, 23), datetime.date(2025, 3, 14)),
 }
 
-# 取得該商品的時間範圍
-min_date, max_date = date_ranges.get(choice, (datetime.date(2020, 1, 1), datetime.date.today()))
+###### 使用選擇的商品來設定日期選單
+min_date, max_date = product_date_ranges[choice]
 
-# 顯示日期選擇器
+st.subheader("選擇資料時間區間")
 start_date = st.date_input('選擇開始日期', value=min_date, min_value=min_date, max_value=max_date)
 end_date = st.date_input('選擇結束日期', value=max_date, min_value=start_date, max_value=max_date)
 
-# 合併時間（保持與原本一致）
+###### 轉換成 datetime（保留時間為 00:00:00）
 start_date = datetime.datetime.combine(start_date, datetime.datetime.min.time())
 end_date = datetime.datetime.combine(end_date, datetime.datetime.min.time())
 
-# 過濾資料
+###### 依時間篩選資料
 df = df_original[(df_original['time'] >= start_date) & (df_original['time'] <= end_date)]
 
 
