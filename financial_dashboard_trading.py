@@ -44,7 +44,7 @@ def load_data(path):
 ###### 選擇金融商品
 st.subheader("選擇金融商品: ")
 # choices = ['台積電: 2022.1.1 至 2024.4.9', '大台指2024.12到期: 2024.1 至 2024.4.9']
-choices = ['台積電: 2022.1.1 至 2024.4.9', '大台指期貨2024.12到期: 2023.12 至 2024.4.11', '小台指期貨2024.12到期: 2023.12 至 2024.4.11', '英業達2020.1.2 至 2024.4.12', '堤維西2020.1.2 至 2024.4.12']
+choices = ['元大台灣50 ETF (0050): 2020.1.2 至 2025.3.10','元大台灣50正2 (00631L): 2023.4.17 至 2025.4.17','台積電 (2330): 2020.1.2 至 2025.4.16','華碩 (2357): 2023.4.17 至 2025.4.16','台灣50期貨 (CBF): 2023.4.17 至 2025.4.17','電子期貨 (CCF): 2023.4.17 至 2025.4.16','金融期貨 (CDF): 2020.3.2 至 2025.4.14','非金電期貨 (CEF): 2023.4.17 至 2025.4.16','摩台期貨 (CMF): 2023.4.17 至 2025.4.17','小型電子期貨 (CQF): 2023.4.17 至 2025.4.17','美元兌新台幣期貨 (FXF): 2020.3.2 至 2025.4.14','小型台指期貨 (MXF): 2020.3.2 至 2025.3.14','台指期貨 (TXF): 2020.3.23 至 2025.3.14']
 choice = st.selectbox('選擇金融商品', choices, index=0)
 ##### 读取Pickle文件
 if choice == choices[0] :         ##'台積電: 2022.1.1 至 2024.4.9':
@@ -67,6 +67,30 @@ if choice == choices[3] :                                           ##'英業達
     df_original = load_data('kbars_2356_2020-01-01-2024-04-12.pkl')
     product_name = '英業達2356'
 if choice == choices[4] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
+    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+    product_name = '堤維西1522'
+if choice == choices[5] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
+    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+    product_name = '堤維西1522'
+if choice == choices[6] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
+    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+    product_name = '堤維西1522'
+if choice == choices[7] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
+    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+    product_name = '堤維西1522'
+if choice == choices[8] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
+    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+    product_name = '堤維西1522'
+if choice == choices[9] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
+    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+    product_name = '堤維西1522'
+if choice == choices[10] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
+    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+    product_name = '堤維西1522'
+if choice == choices[11] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
+    df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
+    product_name = '堤維西1522'
+if choice == choices[12] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_1522_2020-01-01-2024-04-12.pkl')
     product_name = '堤維西1522'
 
