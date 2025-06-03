@@ -70,13 +70,13 @@ if choice == choices[4] :                                                       
     df_original = load_data('kbars_CBF_2023-04-17_To_2025-04-17.pkl')
     product_name = '台灣50期貨CBF'
 if choice == choices[5] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
-    df_original = load_data('kbars_CCF_2023-04-17_To_2025-04-17.pkl')
+    df_original = load_data('kbars_CCF_2023-04-17_To_2025-04-16.pkl')
     product_name = '電子期貨CCF'
 if choice == choices[6] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
-    df_original = load_data('kbars_CDF_2023-04-17_To_2025-04-17.pkl')
+    df_original = load_data('kbars_CDF_2020-03-02_To_2025-04-14.pkl')
     product_name = '金融期貨CDF'
 if choice == choices[7] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
-    df_original = load_data('kbars_CEF_2023-04-17_To_2025-04-17.pkl')
+    df_original = load_data('kbars_CEF_2023-04-17_To_2025-04-16.pkl')
     product_name = '非金電期貨CEF'
 if choice == choices[8] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_CMF_2023-04-17_To_2025-04-17.pkl')
@@ -88,16 +88,13 @@ if choice == choices[10] :                                                      
     df_original = load_data('kbars_FXF_2020-03-02_To_2025-04-14.pkl')
     product_name = '美元兌新台幣期貨FXF'
 if choice == choices[11] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
-    df_original = load_data('kbars_MXF_2020-03-02_To_2025-04-14.pkl')
+    df_original = load_data('kbars_MXF_2020-03-02_To_2025-03-14.pkl')
     product_name = '小型台指期貨MXF'
 if choice == choices[12] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
-    df_original = load_data('kbars_TXF_2020-03-02_To_2025-04-14.pkl')
+    df_original = load_data('kbars_TXF_2020-03-23_To_2025-03-14.pkl')
     product_name = '台指期貨TXF'
 
 
-
-###### 選擇資料區間
-st.subheader("選擇資料時間區間")
 
 ###### 各商品對應的時間範圍
 product_date_ranges = {
