@@ -44,7 +44,7 @@ def load_data(path):
 ###### 選擇金融商品
 st.subheader("選擇金融商品: ")
 # choices = ['台積電: 2022.1.1 至 2024.4.9', '大台指2024.12到期: 2024.1 至 2024.4.9']
-choices = ['台積電 (2330): 2020.1.2 至 2025.4.16','元大台灣50 ETF (0050): 2020.1.2 至 2025.3.10','元大台灣50正2 (00631L): 2023.4.17 至 2025.4.17','華碩 (2357): 2023.4.17 至 2025.4.16','台灣50期貨 (CBF): 2023.4.17 至 2025.4.17','電子期貨 (CCF): 2023.4.17 至 2025.4.16','金融期貨 (CDF): 2020.3.2 至 2025.4.14','非金電期貨 (CEF): 2023.4.17 至 2025.4.16','摩台期貨 (CMF): 2023.4.17 至 2025.4.17','小型電子期貨 (CQF): 2023.4.17 至 2025.4.17','美元兌新台幣期貨 (FXF): 2020.3.2 至 2025.4.14','小型台指期貨 (MXF): 2020.3.2 至 2025.3.14','台指期貨 (TXF): 2020.3.23 至 2025.3.14']
+choices = ['台積電 (2330): 2020.1.2 至 2025.4.16','元大台灣50 ETF (0050): 2020.1.2 至 2025.3.10','元大台灣50正2 (00631L): 2023.4.17 至 2025.4.17','華碩 (2357): 2023.4.17 至 2025.4.16','台灣50期貨 (CBF): 2023.4.17 至 2025.4.17','電子期貨 (CCF): 2023.4.17 至 2025.4.16','金融期貨 (CDF): 2020.3.2 至 2025.4.14','非金電期貨 (CEF): 2023.4.17 至 2025.4.16','台新金期貨 (CMF): 2023.4.17 至 2025.4.17','統一期貨 (CQF): 2023.4.17 至 2025.4.17','美元兌新台幣期貨 (FXF): 2020.3.2 至 2025.4.14','小型台指期貨 (MXF): 2020.3.2 至 2025.3.14','台指期貨 (TXF): 2020.3.23 至 2025.3.14']
 choice = st.selectbox('選擇金融商品', choices, index=0)
 ##### 读取Pickle文件
 if choice == choices[0] :         ##'台積電: 2022.1.1 至 2024.4.9':
@@ -68,25 +68,25 @@ if choice == choices[3] :                                           ##'英業達
     product_name = '華碩2357'
 if choice == choices[4] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_CBF_2023-04-17_To_2025-04-17.pkl')
-    product_name = '台灣50期貨CBF'
+    product_name = '中鋼期貨CBF'
 if choice == choices[5] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_CCF_2023-04-17_To_2025-04-16.pkl')
-    product_name = '電子期貨CCF'
+    product_name = '聯電期貨CCF'
 if choice == choices[6] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_CDF_2020-03-02_To_2025-04-14.pkl')
-    product_name = '金融期貨CDF'
+    product_name = '台積電期貨CDF'
 if choice == choices[7] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_CEF_2023-04-17_To_2025-04-16.pkl')
-    product_name = '非金電期貨CEF'
+    product_name = '富邦金期貨CEF'
 if choice == choices[8] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_CMF_2023-04-17_To_2025-04-17.pkl')
-    product_name = '摩台期貨CMF'
+    product_name = '台新金期貨期貨CMF'
 if choice == choices[9] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_CQF_2023-04-17_To_2025-04-17.pkl')
-    product_name = '小型電子期貨CQF'
+    product_name = '統一期貨CQF'
 if choice == choices[10] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_FXF_2020-03-02_To_2025-04-14.pkl')
-    product_name = '美元兌新台幣期貨FXF'
+    product_name = '金融期貨FXF'
 if choice == choices[11] :                                                       ##'堤維西2020.1.2 至 2024.4.12':
     df_original = load_data('kbars_MXF_2020-03-02_To_2025-03-14.pkl')
     product_name = '小型台指期貨MXF'
@@ -803,7 +803,126 @@ def 計算績效_小台指期貨():
         報酬風險比='資料不足無法計算'
     return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
 
+def 計算績效_電子期貨():
+    交易總盈虧 = OrderRecord.GetTotalProfit()*4000          ## 取得交易總盈虧
+    平均每次盈虧 = OrderRecord.GetAverageProfit()*4000         ## 取得交易 "平均" 盈虧(每次)
+    平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
+    平均獲利_只看獲利的 = OrderRecord.GetAverEarn()*4000              ## 平均獲利(只看獲利的) 
+    平均虧損_只看虧損的 = OrderRecord.GetAverLoss()*4000              ## 平均虧損(只看虧損的)
+    勝率 = OrderRecord.GetWinRate()              ## 勝率
+    最大連續虧損 = OrderRecord.GetAccLoss()*4000               ## 最大連續虧損
+    最大盈虧回落_MDD = OrderRecord.GetMDD()*4000                   ## 最大利潤(盈虧)回落(MDD). 這個不是一般的 "資金" 或 "投資報酬率" 的回落
+    if 最大盈虧回落_MDD>0:
+        報酬風險比 = 交易總盈虧/最大盈虧回落_MDD
+    else:
+        報酬風險比='資料不足無法計算'
+    return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
 
+def 計算績效_金融期貨():
+    交易總盈虧 = OrderRecord.GetTotalProfit()*1000          ## 取得交易總盈虧
+    平均每次盈虧 = OrderRecord.GetAverageProfit()*1000         ## 取得交易 "平均" 盈虧(每次)
+    平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
+    平均獲利_只看獲利的 = OrderRecord.GetAverEarn()*1000              ## 平均獲利(只看獲利的) 
+    平均虧損_只看虧損的 = OrderRecord.GetAverLoss()*1000              ## 平均虧損(只看虧損的)
+    勝率 = OrderRecord.GetWinRate()              ## 勝率
+    最大連續虧損 = OrderRecord.GetAccLoss()*1000               ## 最大連續虧損
+    最大盈虧回落_MDD = OrderRecord.GetMDD()*1000                   ## 最大利潤(盈虧)回落(MDD). 這個不是一般的 "資金" 或 "投資報酬率" 的回落
+    if 最大盈虧回落_MDD>0:
+        報酬風險比 = 交易總盈虧/最大盈虧回落_MDD
+    else:
+        報酬風險比='資料不足無法計算'
+    return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
+
+def 計算績效_台灣50期貨():
+    交易總盈虧 = OrderRecord.GetTotalProfit()*100          ## 取得交易總盈虧
+    平均每次盈虧 = OrderRecord.GetAverageProfit()*100         ## 取得交易 "平均" 盈虧(每次)
+    平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
+    平均獲利_只看獲利的 = OrderRecord.GetAverEarn()*100              ## 平均獲利(只看獲利的) 
+    平均虧損_只看虧損的 = OrderRecord.GetAverLoss()*100              ## 平均虧損(只看虧損的)
+    勝率 = OrderRecord.GetWinRate()              ## 勝率
+    最大連續虧損 = OrderRecord.GetAccLoss()*100               ## 最大連續虧損
+    最大盈虧回落_MDD = OrderRecord.GetMDD()*100                   ## 最大利潤(盈虧)回落(MDD). 這個不是一般的 "資金" 或 "投資報酬率" 的回落
+    if 最大盈虧回落_MDD>0:
+        報酬風險比 = 交易總盈虧/最大盈虧回落_MDD
+    else:
+        報酬風險比='資料不足無法計算'
+    return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
+
+def 計算績效_非金電期貨():
+    交易總盈虧 = OrderRecord.GetTotalProfit()*100          ## 取得交易總盈虧
+    平均每次盈虧 = OrderRecord.GetAverageProfit()*100         ## 取得交易 "平均" 盈虧(每次)
+    平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
+    平均獲利_只看獲利的 = OrderRecord.GetAverEarn()*100              ## 平均獲利(只看獲利的) 
+    平均虧損_只看虧損的 = OrderRecord.GetAverLoss()*100              ## 平均虧損(只看虧損的)
+    勝率 = OrderRecord.GetWinRate()              ## 勝率
+    最大連續虧損 = OrderRecord.GetAccLoss()*100               ## 最大連續虧損
+    最大盈虧回落_MDD = OrderRecord.GetMDD()*100                   ## 最大利潤(盈虧)回落(MDD). 這個不是一般的 "資金" 或 "投資報酬率" 的回落
+    if 最大盈虧回落_MDD>0:
+        報酬風險比 = 交易總盈虧/最大盈虧回落_MDD
+    else:
+        報酬風險比='資料不足無法計算'
+    return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
+
+def 計算績效_台新金期貨():
+    交易總盈虧 = OrderRecord.GetTotalProfit()*2000          ## 取得交易總盈虧
+    平均每次盈虧 = OrderRecord.GetAverageProfit()*2000          ## 取得交易 "平均" 盈虧(每次)
+    平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
+    平均獲利_只看獲利的 = OrderRecord.GetAverEarn()*2000              ## 平均獲利(只看獲利的) 
+    平均虧損_只看虧損的 = OrderRecord.GetAverLoss()*2000              ## 平均虧損(只看虧損的)
+    勝率 = OrderRecord.GetWinRate()              ## 勝率
+    最大連續虧損 = OrderRecord.GetAccLoss()*2000             ## 最大連續虧損
+    最大盈虧回落_MDD = OrderRecord.GetMDD()*2000                   ## 最大利潤(盈虧)回落(MDD). 這個不是一般的 "資金" 或 "投資報酬率" 的回落
+    if 最大盈虧回落_MDD>0:
+        報酬風險比 = 交易總盈虧/最大盈虧回落_MDD
+    else:
+        報酬風險比='資料不足無法計算'
+    return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
+
+def 計算績效_統一期貨():
+    交易總盈虧 = OrderRecord.GetTotalProfit()*2000          ## 取得交易總盈虧
+    平均每次盈虧 = OrderRecord.GetAverageProfit()*2000          ## 取得交易 "平均" 盈虧(每次)
+    平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
+    平均獲利_只看獲利的 = OrderRecord.GetAverEarn()*2000              ## 平均獲利(只看獲利的) 
+    平均虧損_只看虧損的 = OrderRecord.GetAverLoss()*2000              ## 平均虧損(只看虧損的)
+    勝率 = OrderRecord.GetWinRate()              ## 勝率
+    最大連續虧損 = OrderRecord.GetAccLoss()*2000             ## 最大連續虧損
+    最大盈虧回落_MDD = OrderRecord.GetMDD()*2000                   ## 最大利潤(盈虧)回落(MDD). 這個不是一般的 "資金" 或 "投資報酬率" 的回落
+    if 最大盈虧回落_MDD>0:
+        報酬風險比 = 交易總盈虧/最大盈虧回落_MDD
+    else:
+        報酬風險比='資料不足無法計算'
+    return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
+	
+def 計算績效_台新金期貨():
+    交易總盈虧 = OrderRecord.GetTotalProfit()*2000          ## 取得交易總盈虧
+    平均每次盈虧 = OrderRecord.GetAverageProfit()*2000          ## 取得交易 "平均" 盈虧(每次)
+    平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
+    平均獲利_只看獲利的 = OrderRecord.GetAverEarn()*2000              ## 平均獲利(只看獲利的) 
+    平均虧損_只看虧損的 = OrderRecord.GetAverLoss()*2000              ## 平均虧損(只看虧損的)
+    勝率 = OrderRecord.GetWinRate()              ## 勝率
+    最大連續虧損 = OrderRecord.GetAccLoss()*2000             ## 最大連續虧損
+    最大盈虧回落_MDD = OrderRecord.GetMDD()*2000                   ## 最大利潤(盈虧)回落(MDD). 這個不是一般的 "資金" 或 "投資報酬率" 的回落
+    if 最大盈虧回落_MDD>0:
+        報酬風險比 = 交易總盈虧/最大盈虧回落_MDD
+    else:
+        報酬風險比='資料不足無法計算'
+    return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
+	
+def 計算績效_台新金期貨():
+    交易總盈虧 = OrderRecord.GetTotalProfit()*2000          ## 取得交易總盈虧
+    平均每次盈虧 = OrderRecord.GetAverageProfit()*2000          ## 取得交易 "平均" 盈虧(每次)
+    平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
+    平均獲利_只看獲利的 = OrderRecord.GetAverEarn()*2000              ## 平均獲利(只看獲利的) 
+    平均虧損_只看虧損的 = OrderRecord.GetAverLoss()*2000              ## 平均虧損(只看虧損的)
+    勝率 = OrderRecord.GetWinRate()              ## 勝率
+    最大連續虧損 = OrderRecord.GetAccLoss()*2000             ## 最大連續虧損
+    最大盈虧回落_MDD = OrderRecord.GetMDD()*2000                   ## 最大利潤(盈虧)回落(MDD). 這個不是一般的 "資金" 或 "投資報酬率" 的回落
+    if 最大盈虧回落_MDD>0:
+        報酬風險比 = 交易總盈虧/最大盈虧回落_MDD
+    else:
+        報酬風險比='資料不足無法計算'
+    return 交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比
+	
 
 
 
@@ -825,7 +944,7 @@ if choice == choices[0] :   ##'台積電: 2022.1.1 至 2024.4.9':
     #     報酬風險比='資料不足無法計算'
 
 if choice == choices[1] :   #'大台指期貨2024.12到期: 2023.12 至 2024.4.11':
-    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_大台指期貨()
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_股票()
 
     # 交易總盈虧 = OrderRecord.GetTotalProfit()*200          ## 取得交易總盈虧
     # 平均每次盈虧 = OrderRecord.GetAverageProfit() *200       ## 取得交易 "平均" 盈虧(每次)
@@ -841,7 +960,7 @@ if choice == choices[1] :   #'大台指期貨2024.12到期: 2023.12 至 2024.4.1
     #     報酬風險比='資料不足無法計算'
 
 if choice == choices[2] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
-    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_小台指期貨()
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_股票()
     # 交易總盈虧 = OrderRecord.GetTotalProfit()*50          ## 取得交易總盈虧
     # 平均每次盈虧 = OrderRecord.GetAverageProfit() *50       ## 取得交易 "平均" 盈虧(每次)
     # 平均投資報酬率 = OrderRecord.GetAverageProfitRate()    ## 取得交易 "平均" 投資報酬率(每次)  
@@ -871,7 +990,31 @@ if choice == choices[3] :   #'英業達2020.1.2 至 2024.4.12':
     #     報酬風險比='資料不足無法計算'
 
 if choice == choices[4] :   #'堤維西2020.1.2 至 2024.4.12':
-    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_股票()
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_台灣50期貨()
+
+if choice == choices[5] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_電子期貨()
+
+if choice == choices[6] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_金融期貨()
+
+if choice == choices[7] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_非金電期貨()
+
+if choice == choices[8] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_台新金期貨()
+
+if choice == choices[9] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_統一期貨()
+
+if choice == choices[10] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_小台指期貨()
+
+if choice == choices[11] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_小台指期貨()
+
+if choice == choices[12] :   #'小台指期貨2024.12到期: 2023.12 至 2024.4.11':
+    交易總盈虧,平均每次盈虧,平均投資報酬率,平均獲利_只看獲利的,平均虧損_只看虧損的,勝率,最大連續虧損,最大盈虧回落_MDD,報酬風險比 = 計算績效_大台指期貨()
 
 
 
